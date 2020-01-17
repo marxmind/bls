@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui = "http://java.sun.com/jsf/facelets"
+  xmlns:h = "http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui" 
+xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+xmlns:my="http://java.sun.com/jsf/composite/my"  
+  >
+ <f:view contentType="text/html"> 
+<h:head>
+<link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon.ico']}" />
+<f:facet name="first">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <title>#{versionBean.copyright.appname} Home</title>
+	</f:facet>
+	
+	<f:facet name="middle">
+			<h:outputStylesheet name="sb-admin/bootstrap/css/bootstrap.min.css"/>
+            <h:outputStylesheet name="sb-admin/font-awesome/css/all.min.css" />
+            <h:outputStylesheet name="sb-admin/css/sb-admin.min.css"/>
+            <h:outputStylesheet name="sb-admin/css/bg-sidebar.min.css"/>
+            <h:outputStylesheet name="css/font-awesome.min.css" />
+            
+     </f:facet>
+     <f:facet name="last">       
+            <h:outputScript name="jquery/jquery.min.js" target="head"/>
+            <h:outputScript name="sb-admin/bootstrap/js/bootstrap.bundle.min.js"/>
+            <h:outputScript name="sb-admin/jquery-easing/jquery.easing.min.js"/>
+            <h:outputScript name="sb-admin/js/sb-admin.min.js"/>
+    </f:facet>
+        
+    <title>#{versionBean.copyright.appname} Home</title>
+
+<style>
+<!-- 
+
+.ui-growl{
+	top: 100px;
+	right: 500px; important!;
+	z-index: 1500; important!;
+}
+
+.ui-container{
+	top: 100px;
+	right: 500px; important!;
+}
+
+
+
+ -->
+ </style>
+ 
+<title>#{versionBean.copyright.appname} Home</title>
+
+</h:head>
+
+<h:body id="page-top">
+<h:form prependId="false" id="formId">
+
+<div id="wrapper">
+		
+      <!-- Sidebar -->
+      <ui:include src="sidebarmenu.xhtml" />
+
+      <div id="content-wrapper">
+      
+      <script type="text/javascript">
+            //<![CDATA[
+            function exportChart(chart) {
+                //export image
+                $('#output').empty().append(PF(chart).exportAsImage());
+ 
+                //show the dialog
+                PF('dlg').show();
+            }
+            //]]>
+        </script>
+ 
+        <p:barChart model="#{chartJsView.barModel2}"  style="width: 100%; height: 500px;background-color: white" widgetVar="chart1" />
+		<p:commandButton type="button" value="Export" icon="pi pi-home" onclick="exportChart('chart1')"/>
+		<b/>
+		
+		<p:lineChart model="#{chartJsView.lineModel}" style="width: 100%; height: 500px;background-color: white" widgetVar="chart2"/>
+		
+		<p:commandButton type="button" value="Export" icon="pi pi-home" onclick="exportChart('chart2')"/>
+		 
+		<p:dialog widgetVar="dlg" showEffect="fade" modal="false" header="Chart as an Image" resizable="true">
+		    <p:outputPanel id="output" layout="block" style="width:500px;height:300px"/>
+		</p:dialog>
+      
+      
+      <!-- Sticky Footer -->
+      <ui:include src="copyright.xhtml" />
+      
+      </div> <!-- wrapper content -->
+      
+</div><!-- wrapper -->      
+      
+
+<ui:include src="loader.xhtml" />
+</h:form>
+</h:body>
+</f:view>
+</html>
