@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<business>
+	<line id="0">
+		<name>Poblacion-Lake Sebu</name>
+		<description>Poblacion, Lake Sebu Barangay Hall</description>
+		<address>Poblacion, Lake Sebu</address>
+		<owner>LGU</owner>
+		<contact>0</contact>
+		<database>bris</database>
+		<driver>Y29tLm15c3FsLmpkYmMuRHJpdmVy</driver>
+		<url>amRiYzpteXNxbDovL2xvY2FsaG9zdA==</url>
+		<port>MzMwNg==</port>
+		<SSL>useSSL=false</SSL>
+		<username>cm9vdA==</username>
+		<password>b2N0b2JlcjE4MTk4Nio=</password>
+		<idcode>PLS</idcode>
+		<province>South Cotabato</province>
+		<municipality>Lake Sebu</municipality>
+		<barangay>Poblacion</barangay>
+		<yearlybudget>6000000</yearlybudget>
+	</line>
+	
+</business>
