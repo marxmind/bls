@@ -25,7 +25,7 @@ public enum Bris {
 	APP_PHONE("supportNo"),
 	APP_LOG_PATH("logPath"),
 	APP_LOG("includeLog"),
-	APP_FOLDER("bris"),
+	APP_FOLDER("bls"),
 	APP_CONFIG_FLDR("conf"),
 	APP_CONFIG_FILE("application.xml"),
 	APP_LICENSE_FILE_NAME("license.xml"),
