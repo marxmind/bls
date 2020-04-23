@@ -193,6 +193,11 @@ public class ORTransactionBean implements Serializable{
 			Application.addMessage(3, "Error", "Please provide Address	");
 		}
 		
+		if(getOrNumber()!=null && getOrNumber().contains(".")) {
+			isOk = false;
+			Application.addMessage(3, "Error", "Please remove period on OR series");
+		}
+		
 		if(isOk){
 			
 			if(or.getId()==0) {
