@@ -102,16 +102,16 @@ public class LoginBean implements Serializable{
 	@PostConstruct
 	public void init(){
 		//invalidate session
-		IBean.removeBean();
+		//IBean.removeBean();
 		
 		//load business wallpaper
-		String wallpaper = ReadConfig.value(Bris.BUSINESS_WALLPAPER_FILE);
+		//String wallpaper = ReadConfig.value(Bris.BUSINESS_WALLPAPER_FILE);
 		
-		copyWallpaperImg(wallpaper);
+		//copyWallpaperImg(wallpaper);
 		
-		String path = REPORT_PATH + ReadConfig.value(Bris.BARANGAY_NAME).replace(" ", "") + Bris.SEPERATOR.getName();
-		String filoLogo = path + "logo.png";
-		copyLogo(filoLogo);
+		//String path = REPORT_PATH + ReadConfig.value(Bris.BARANGAY_NAME).replace(" ", "") + Bris.SEPERATOR.getName();
+		//String filoLogo = path + "logo.png";
+		//copyLogo(filoLogo);
 		
 		//DailyReport.startCollectReport();
 	}

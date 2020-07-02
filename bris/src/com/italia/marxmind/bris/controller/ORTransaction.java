@@ -31,6 +31,7 @@ public class ORTransaction {
 	
 	private String address;
 	private String purpose;
+	private int iscapital;
 	
 	public static String getLastORNumber() {
 		String sql = "SELECT orno FROM orlisting WHERE oractive=1 ORDER BY orid DESC LIMIT 1";
@@ -93,6 +94,7 @@ public class ORTransaction {
 			try{ort.setAddress(rs.getString("orissuedaddress"));}catch(NullPointerException e){}
 			try{ort.setStatus(rs.getInt("orstatus"));}catch(NullPointerException e){}
 			try{ort.setGrossAmount(rs.getDouble("grossamount"));}catch(NullPointerException e){}
+			try{ort.setIscapital(rs.getInt("iscapital"));}catch(NullPointerException e){}
 			
 			try{ort.setOrStatus(ort.getStatus()==1? "Delivered" : "Cancelled");}catch(NullPointerException e){}
 			Customer cus = new Customer();
@@ -156,6 +158,7 @@ public class ORTransaction {
 			try{ort.setStatus(rs.getInt("orstatus"));}catch(NullPointerException e){}
 			try{ort.setGrossAmount(rs.getDouble("grossamount"));}catch(NullPointerException e){}
 			try{ort.setOrStatus(ort.getStatus()==1? "Delivered" : "Cancelled");}catch(NullPointerException e){}
+			try{ort.setIscapital(rs.getInt("iscapital"));}catch(NullPointerException e){}
 			
 			Customer cus = new Customer();
 			try{cus.setCustomerid(rs.getLong("customerid"));}catch(NullPointerException e){}
@@ -262,8 +265,9 @@ public class ORTransaction {
 				+ "customerid,"
 				+ "userdtlsid,"
 				+ "orstatus,"
-				+ "grossamount)" 
-				+ "values(?,?,?,?,?,?,?,?,?,?,?)";
+				+ "grossamount,"
+				+ "iscapital)" 
+				+ "values(?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 		PreparedStatement ps = null;
 		Connection conn = null;
@@ -296,6 +300,7 @@ public class ORTransaction {
 		ps.setLong(cnt++, or.getUserDtls()==null? 0 : or.getUserDtls().getUserdtlsid());
 		ps.setInt(cnt++, or.getStatus());
 		ps.setDouble(cnt++, or.getGrossAmount());
+		ps.setInt(cnt++, or.getIscapital());
 		
 		LogU.add(or.getDateTrans());
 		LogU.add(or.getOrNumber());
@@ -307,6 +312,7 @@ public class ORTransaction {
 		LogU.add(or.getUserDtls()==null? 0 : or.getUserDtls().getUserdtlsid());
 		LogU.add(or.getStatus());
 		LogU.add(or.getGrossAmount());
+		LogU.add(or.getIscapital());
 		
 		LogU.add("executing for saving...");
 		ps.execute();
@@ -333,8 +339,9 @@ public class ORTransaction {
 				+ "customerid,"
 				+ "userdtlsid,"
 				+ "orstatus,"
-				+ "grossamount)" 
-				+ "values(?,?,?,?,?,?,?,?,?,?,?)";
+				+ "grossamount,"
+				+ "iscapital)" 
+				+ "values(?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 		PreparedStatement ps = null;
 		Connection conn = null;
@@ -367,6 +374,7 @@ public class ORTransaction {
 		ps.setLong(cnt++, getUserDtls()==null? 0 : getUserDtls().getUserdtlsid());
 		ps.setInt(cnt++, getStatus());
 		ps.setDouble(cnt++, getGrossAmount());
+		ps.setInt(cnt++, getIscapital());
 		
 		LogU.add(getDateTrans());
 		LogU.add(getOrNumber());
@@ -378,6 +386,7 @@ public class ORTransaction {
 		LogU.add(getUserDtls()==null? 0 : getUserDtls().getUserdtlsid());
 		LogU.add(getStatus());		
 		LogU.add(getGrossAmount());
+		LogU.add(getIscapital());
 		
 		LogU.add("executing for saving...");
 		ps.execute();
@@ -402,7 +411,8 @@ public class ORTransaction {
 				+ "customerid=?,"
 				+ "userdtlsid=?,"
 				+ "orstatus=?,"
-				+ "grossamount=?" 
+				+ "grossamount=?,"
+				+ "iscapital=?" 
 				+ " WHERE orid=?";
 		
 		PreparedStatement ps = null;
@@ -425,6 +435,7 @@ public class ORTransaction {
 		ps.setLong(cnt++, or.getUserDtls()==null? 0 : or.getUserDtls().getUserdtlsid());
 		ps.setInt(cnt++, or.getStatus());
 		ps.setDouble(cnt++, or.getGrossAmount());
+		ps.setInt(cnt++, or.getIscapital());
 		ps.setLong(cnt++, or.getId());
 		
 		LogU.add(or.getDateTrans());
@@ -436,6 +447,7 @@ public class ORTransaction {
 		LogU.add(or.getUserDtls()==null? 0 : or.getUserDtls().getUserdtlsid());
 		LogU.add(or.getStatus());
 		LogU.add(or.getGrossAmount());
+		LogU.add(or.getIscapital());
 		LogU.add(or.getId());
 				
 		LogU.add("executing for saving...");
@@ -461,7 +473,8 @@ public class ORTransaction {
 				+ "customerid=?,"
 				+ "userdtlsid=?,"
 				+ "orstatus=?,"
-				+ "grossamount=?" 
+				+ "grossamount=?,"
+				+ "iscapital=?" 
 				+ " WHERE orid=?";
 		
 		PreparedStatement ps = null;
@@ -484,6 +497,7 @@ public class ORTransaction {
 		ps.setLong(cnt++, getUserDtls()==null? 0 : getUserDtls().getUserdtlsid());
 		ps.setInt(cnt++, getStatus());
 		ps.setDouble(cnt++, getGrossAmount());
+		ps.setInt(cnt++, getIscapital());
 		ps.setLong(cnt++, getId());
 		
 		LogU.add(getDateTrans());
@@ -495,6 +509,7 @@ public class ORTransaction {
 		LogU.add(getUserDtls()==null? 0 : getUserDtls().getUserdtlsid());
 		LogU.add(getStatus());
 		LogU.add(getGrossAmount());
+		LogU.add(getIscapital());
 		LogU.add(getId());
 				
 		LogU.add("executing for saving...");
@@ -728,6 +743,14 @@ public class ORTransaction {
 
 	public void setGrossAmount(double grossAmount) {
 		this.grossAmount = grossAmount;
+	}
+
+	public int getIscapital() {
+		return iscapital;
+	}
+
+	public void setIscapital(int iscapital) {
+		this.iscapital = iscapital;
 	}
 	
 }

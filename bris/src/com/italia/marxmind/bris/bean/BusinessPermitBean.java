@@ -26,6 +26,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import javax.imageio.stream.FileImageOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
@@ -82,7 +83,7 @@ public class BusinessPermitBean implements Serializable{
 
 	public List<BusinessPermit> pmts = Collections.synchronizedList(new ArrayList<BusinessPermit>());
 	
-	private String issuedDate;
+	private Date issuedDate;
 	private Date calendarFrom;
 	private Date calendarTo;
 	
@@ -141,10 +142,35 @@ public class BusinessPermitBean implements Serializable{
 	private double grossAmount;
 	private String employeeDtls;
 	
+	private String memoTypeId;
+	private List memos;
+	
+	private String typeId;
+	private List types;
+	
+	
 	@PostConstruct
 	public void init() {
 		loadSearch();
 		loadLineOfBusiness();
+		loadTypes();
+		loadMemos();
+	}
+	
+	public void loadTypes() {
+		types = new ArrayList<>();
+		String[] typs = Words.getTagName("types").split(",");
+		for(String t : typs) {
+			types.add(new SelectItem(t, t));
+		}
+	}
+	
+	public void loadMemos() {
+		memos = new ArrayList<>();
+		String[] types = Words.getTagName("memotype").split(",");
+		for(String t : types) {
+				memos.add(new SelectItem(t, t));
+		}
 	}
 	
 	public void loadSearch() {
@@ -235,12 +261,15 @@ public class BusinessPermitBean implements Serializable{
 		setIssuedOn(permit.getIssuedOn());
 		setYear(permit.getYear());
 		setMemoType(permit.getMemoType());
+		setMemoTypeId(permit.getMemoType());
 		setOic(permit.getOic());
 		setMayor(permit.getMayor());
 		setControlNo(permit.getControlNo());
 		setTypeOf(permit.getType());
+		setTypeId(permit.getType());
 		setEmployeeDtls(permit.getEmpdtls());
 		setGrossAmount(permit.getGrossAmount());
+		setIssuedDate(DateUtils.convertDateString(permit.getDateTrans(), "yyyy-MM-dd"));
 		loadBusiness();
 	}
 	
@@ -398,6 +427,8 @@ public class BusinessPermitBean implements Serializable{
 	}
 	
 	public void clearFields(){
+		setTypeId(null);
+		setMemoTypeId(null);
 		setIssuedDate(null);
 		setPhotoId("camera");
 		setTaxPayer(null);
@@ -453,11 +484,12 @@ public class BusinessPermitBean implements Serializable{
 		
 		if(isOk) {
 		permit.setCustomer(getTaxPayer());
-		String year = getIssuedDate().split("-")[0];
+		String det = DateUtils.convertDate(getIssuedDate(), "yyyy-MM-dd");
+		String year = det.split("-")[0];
 		permit.setYear(year);	
-		permit.setDateTrans(getIssuedDate());
+		permit.setDateTrans(det);
 		permit.setControlNo(getControlNo());
-		permit.setType(getTypeOf());
+		permit.setType(getTypeId());
 		permit.setBusinessName(getBusinessName());
 		permit.setBusinessEngage(getBusinessEngage());
 		permit.setBusinessAddress(getBusinessAddress());
@@ -465,7 +497,7 @@ public class BusinessPermitBean implements Serializable{
 		permit.setPlateNo(getPlateNo());
 		permit.setValidUntil(getValidUntil());
 		permit.setIssuedOn(getIssuedOn());
-		permit.setMemoType(getMemoType());
+		permit.setMemoType(getMemoTypeId());
 		permit.setOic(getOic());
 		permit.setMayor(getMayor());
 		permit.setEmpdtls(getEmployeeDtls());
@@ -531,13 +563,13 @@ public class BusinessPermitBean implements Serializable{
 		this.photoId = photoId;
 	}
 	
-	public String getIssuedDate() {
+	public Date getIssuedDate() {
 		if(issuedDate==null){
-			issuedDate = DateUtils.getCurrentDateYYYYMMDD();
+			issuedDate =  DateUtils.getDateToday();//DateUtils.getCurrentDateYYYYMMDD();
 		}
 		return issuedDate;
 	}
-	public void setIssuedDate(String issuedDate) {
+	public void setIssuedDate(Date issuedDate) {
 		this.issuedDate = issuedDate;
 	}
 	
@@ -1309,13 +1341,22 @@ public void printPermit(BusinessPermit permit) {
 							r.setF9(or.getDateTrans());
 							r.setF10(or.getDateTrans());
 							
-							r.setF11("");
+							if(or.getIscapital()==1) {
+								r.setF11(Currency.formatAmount(or.getGrossAmount()));//capital
+								r.setF12("");//gross sale
+							} else {
+								r.setF11("");//capital
+								r.setF12(Currency.formatAmount(or.getGrossAmount()));//gross sale
+							}
+							
 							//provide gross sale value if has value inputted
+							/*
+							r.setF11("");
 							if(or.getGrossAmount()>0) {
 								r.setF12(Currency.formatAmount(or.getGrossAmount()));//gross sale
 							}else {
-								r.setF12("");//gross sale
-							}
+								r.setF12("");
+							}*/
 							
 							r.setF13("");
 							r.setF14("");
@@ -1709,6 +1750,38 @@ public void printPermit(BusinessPermit permit) {
 
 	public void setEmployeeDtls(String employeeDtls) {
 		this.employeeDtls = employeeDtls;
+	}
+
+	public String getMemoTypeId() {
+		return memoTypeId;
+	}
+
+	public void setMemoTypeId(String memoTypeId) {
+		this.memoTypeId = memoTypeId;
+	}
+
+	public List getMemos() {
+		return memos;
+	}
+
+	public void setMemos(List memos) {
+		this.memos = memos;
+	}
+
+	public String getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(String typeId) {
+		this.typeId = typeId;
+	}
+
+	public List getTypes() {
+		return types;
+	}
+
+	public void setTypes(List types) {
+		this.types = types;
 	}
 	
 }

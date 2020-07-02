@@ -71,6 +71,8 @@ public class ORTransactionBean implements Serializable{
 	
 	private List<String> checks;
 	
+	private boolean capital;
+	
 	@PostConstruct
 	public void init(){
 		loadORs();
@@ -213,6 +215,7 @@ public class ORTransactionBean implements Serializable{
 			or.setPurpose(getPurpose().toUpperCase());
 			or.setUserDtls(Login.getUserLogin().getUserDtls());
 			or.setGrossAmount(getGrossAmount());
+			or.setIscapital(isCapital()==true? 1 : 0);
 			or.save();
 			
 			clearFlds();
@@ -373,6 +376,7 @@ public class ORTransactionBean implements Serializable{
 		setCitizenName(or.getCustomer().getFullname());
 		setStatId(or.getStatus());
 		setGrossAmount(or.getGrossAmount());
+		setCapital(or.getIscapital()==0? false : true);
 	}
 	
 	public void clickItemOwner(Customer cus){
@@ -394,7 +398,7 @@ public class ORTransactionBean implements Serializable{
 		setStatId(1);
 		
 		checks = Collections.synchronizedList(new ArrayList<String>());
-		
+		setCapital(false);
 		setGrossAmount(0);
 	}
 	
@@ -591,6 +595,14 @@ public class ORTransactionBean implements Serializable{
 
 	public void setGrossAmount(double grossAmount) {
 		this.grossAmount = grossAmount;
+	}
+
+	public boolean isCapital() {
+		return capital;
+	}
+
+	public void setCapital(boolean capital) {
+		this.capital = capital;
 	}
 	
 }

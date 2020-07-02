@@ -177,7 +177,7 @@ public class Customer {
 	}
 	
 	public static boolean validateNameEntry(String first, String middle, String last){
-		String sql = "SELECT cusfirstname,cusmiddlename,cuslastname FROM customer WHERE cusfirstname=? AND cusmiddlename=? AND cuslastname=?";
+		String sql = "SELECT cusfirstname,cusmiddlename,cuslastname FROM customer WHERE cusisactive=1 AND cusfirstname=? AND cusmiddlename=? AND cuslastname=?";
 		String[] params = new String[3];
 		params[0] = first;
 		params[1] = middle;

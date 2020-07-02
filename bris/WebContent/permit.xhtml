@@ -193,7 +193,7 @@ xmlns:my="http://java.sun.com/jsf/composite/my"
 				<p:panelGrid id="clearFldId" columns="4" layout="grid">
 						
 						<p:outputLabel value="Issued:" style="#{skin.label}" />
-						<p:inputText value="#{permit.issuedDate}" placeholder="yyyy-MM-dd" style="width: 11em;#{skin.textInput}"/>
+						<p:calendar  value="#{permit.issuedDate}"  required="true" pattern="yyyy-MM-dd" effect="slideDown"/>
 						
 						<p:outputLabel value="Requestor:" style="#{skin.label}"/>
 		            	<p:outputLabel value="#{permit.customerName}" style="#{skin.label}">
@@ -212,12 +212,16 @@ xmlns:my="http://java.sun.com/jsf/composite/my"
 						 <p:outputLabel for="d0000" value="Valid Until" style="#{skin.label}" />
 						 <p:inputText id="d0000" value="#{permit.validUntil}" style="width: 11em;#{skin.textInput}"/>
 		        		 
-		        		 <p:outputLabel for="d1" value="Type:" style="#{skin.label}"/>
-		        		 <p:autoComplete id="d1" value="#{permit.typeOf}" placeholder="Type" completeMethod="#{permit.autoTypes}" effect="fade" dropdownMode="true" style="width: 11em;#{skin.textInput}"/>
-		        		   	
+		        		 <p:outputLabel for="d1" value="Type" style="#{skin.label}"/>
+		        		 <p:selectOneMenu id="d1" value="#{permit.typeId}" style="width: 11em;#{skin.select}">
+		                	<f:selectItems value="#{permit.types}"/>
+		            	</p:selectOneMenu>
+		            	 	
 		        		 <p:outputLabel for="d2" value="Memo:" style="#{skin.label}"/>
-		        		 <p:autoComplete id="d2" value="#{permit.memoType}" placeholder="Memo" completeMethod="#{permit.autoMemos}" effect="fade" dropdownMode="true" style="width: 11em;#{skin.textInput}"/>
-		        		 
+		        		 <p:selectOneMenu id="d2" value="#{permit.memoTypeId}" style="width: 11em;#{skin.select}">
+		                	<f:selectItems value="#{permit.memos}"/>
+		            	</p:selectOneMenu>
+		            	
 		        		 <p:outputLabel for="d3" value="Business Name" style="#{skin.label}" />
 						 <p:inputTextarea id="d3" value="#{permit.businessName}" style="width: 11em;#{skin.textInput}"/>  	
 						 
